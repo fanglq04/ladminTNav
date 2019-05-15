@@ -50,3 +50,8 @@
         </div>
     </nav>
 </header>
+<header class="sub-nav" style="background: #414658;border-top: 1px solid #00a65a;">
+    <ul class="nav nav-pills">
+        {!! request()->get("top_permissions") !!}
+    </ul>
+</header>
