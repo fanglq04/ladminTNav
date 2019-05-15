@@ -38,7 +38,8 @@ class CreateTableAdminTables extends Migration
             $table->string('name', 50)->unique();
             $table->integer('order')->default(0);
             $table->string('uri', 150);
-            $table->boolean("visit")->default(1)->nullable()->comment("是否显示在菜单栏: 0-否 1-是");        
+            $table->boolean("visit")->default(1)->nullable()->comment("是否显示在菜单栏: 0-否 1-是");
+            $table->boolean("top_visit")->default(0)->nullable()->comment("是否显示在头部菜单栏: 0-否 1-是");
             $table->string('icon', 50);
             $table->unsignedInteger('parent_id')->nullable();            
             $table->timestamps();

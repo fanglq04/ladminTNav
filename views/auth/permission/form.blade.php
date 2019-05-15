@@ -66,6 +66,15 @@
             </select>
         </div>
     </div>
+    <div class="form-group">
+        <label for="top_visit" class="col-sm-2 control-label">头部菜单栏显示</label>
+        <div class="col-sm-8">
+            <select name="top_visit" id="top_visit" class="select2 form-control">
+                <option value='1' {{ $permission->visit == 1?'selected':"" }}>是</option>
+                <option value='0' {{ $permission->visit == 0?'selected':"" }}>否</option>
+            </select>
+        </div>
+    </div>
 @else
     <div class="form-group">
         <label for="parent_id" class="col-sm-2 control-label">父级菜单</label>
@@ -116,6 +125,15 @@
     <label for="uri" class="col-sm-2 control-label">菜单栏显示</label>
     <div class="col-sm-8">
         <select name="visit" id="visit" class="select2 form-control">
+            <option value='1'>是</option>
+            <option value='0'>否</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label for="top_visit" class="col-sm-2 control-label">头部特殊菜单栏显示</label>
+    <div class="col-sm-8">
+        <select name="top_visit" id="top_visit" class="select2 form-control">
             <option value='1'>是</option>
             <option value='0'>否</option>
         </select>
