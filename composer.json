@@ -1,0 +1,19 @@
+{
+    "name": "fanglq04/ladmin",
+    "description": "Laravel5+ admin and RBAC",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wangjiafang",
+            "email": "270494194@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Admin\\":"src/"
+        }
+    }
+}
