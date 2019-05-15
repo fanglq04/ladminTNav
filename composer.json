@@ -1,10 +1,10 @@
 {
-    "name": "fanglq04/ladmin",
-    "description": "Laravel5+ admin and RBAC",
+    "name": "fanglq04/ladminTNav",
+    "description": "Laravel RBAC 基于左侧导航菜单新增顶部导航",
     "license": "MIT",
     "authors": [
         {
-            "name": "wangjiafang",
+            "name": "Jiafang.Wang",
             "email": "270494194@qq.com"
         }
     ],
