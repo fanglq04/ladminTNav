@@ -131,7 +131,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="top_visit" class="col-sm-2 control-label">头部特殊菜单栏显示</label>
+    <label for="top_visit" class="col-sm-2 control-label">头部菜单栏显示</label>
     <div class="col-sm-8">
         <select name="top_visit" id="top_visit" class="select2 form-control">
             <option value='1'>是</option>
@@ -141,10 +141,9 @@
 </div>
 @endif
 @push('css')
-<link rel="stylesheet" href="{{ asset('/packages/admin/bootstrap-iconpicker/dist/css/bootstrap-iconpicker.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/library/bootstrap-iconpicker/dist/css/bootstrap-iconpicker.min.css') }}">
 @endpush
 @push('js')
-<script src="{{ asset('/packages/admin/bootstrap-iconpicker/dist/js/bootstrap-iconpicker-iconset-all.min.js') }}"></script>
-<script src="{{ asset('/packages/admin/bootstrap-iconpicker/dist/js/bootstrap-iconpicker.min.js') }}"></script>
-
+<script src="{{ asset('/library/bootstrap-iconpicker/dist/js/bootstrap-iconpicker-iconset-all.min.js') }}"></script>
+<script src="{{ asset('/library/bootstrap-iconpicker/dist/js/bootstrap-iconpicker.min.js') }}"></script>
 @endpush

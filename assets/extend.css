@@ -1,1 +1,10 @@
 /*自定义的样式文件20190515*/
+
+/*头部导航*/
+.nav-pills>li>a{color: #ffffff !important;}
+.nav-pills>li+li{margin-left: 20px}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{background-color:#00a65a;}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{border-top-color:#00a65a !important;}
+.nav-pills>li>a:hover{background: #00a65a  !important;color: #ffffff !important;}
+.sub-nav ul {margin-left: 230px}
+.sidebar-mini.sidebar-collapse .sub-nav ul{margin-left: 58px}

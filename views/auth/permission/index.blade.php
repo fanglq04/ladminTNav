@@ -96,11 +96,11 @@
 @endsection
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('/packages/admin/zTree_v3/css/zTreeStyle/zTreeStyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('/library/zTree_v3/css/zTreeStyle/zTreeStyle.css') }}">
 @endpush
 
 @push('js')
-<script src="{{ asset('/packages/admin/zTree_v3/js/jquery.ztree.core.min.js') }}"></script>
+    <script src="{{ asset('/library/zTree_v3/js/jquery.ztree.core.min.js') }}"></script>
 <script>
     $(document).ready(function(){
         var setting = {
