@@ -75,11 +75,16 @@ class MenuMiddleware
         $html = "";
         $current = Route::currentRouteName();
         foreach ($menus as $index => $permission) {
-            if (self::matchRoute($current, $permission["uri"]))
+            /*if (self::matchRoute($current, $permission["uri"]))
                 $html .= '<li role="presentation" class="active">';
             else
                 $html .= '<li  role="presentation">';
-
+            */
+            if ($current == $permission["uri"]) {
+                $html .= '<li role="presentation" class="active">';
+            } else {
+                $html .= '<li  role="presentation">';
+            }
             $html .= '<a href="' . URL::route($permission["uri"]) . '">'.$permission["name"].'</a></li>';
         }
         return $html;
