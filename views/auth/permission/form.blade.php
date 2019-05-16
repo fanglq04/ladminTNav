@@ -70,8 +70,8 @@
         <label for="top_visit" class="col-sm-2 control-label">头部菜单栏显示</label>
         <div class="col-sm-8">
             <select name="top_visit" id="top_visit" class="select2 form-control">
-                <option value='1' {{ $permission->visit == 1?'selected':"" }}>是</option>
-                <option value='0' {{ $permission->visit == 0?'selected':"" }}>否</option>
+                <option value='1' {{ $permission->top_visit == 1?'selected':"" }}>是</option>
+                <option value='0' {{ $permission->top_visit == 0?'selected':"" }}>否</option>
             </select>
         </div>
     </div>

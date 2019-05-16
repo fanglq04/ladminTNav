@@ -25,7 +25,6 @@ class PermissionController extends BaseController
     public function index()
     {
         $user = \Auth::guard("admin")->user();
-
         $permissions = $user->userMenus();
         if (view()->exists('admin.auth.permission.index')) {
             $tpl = 'admin.auth.permission.index';

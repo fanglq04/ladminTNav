@@ -20,20 +20,47 @@
     <div class="form-group">
         <label for="permission_id" class="col-md-2 control-label">选择权限</label>
         <div class="col-sm-8">
-            <select name="permission_id[]" id="" class="form-control select2" multiple>
+            <table class="table">
                 @forelse($permissions as $top)
                     @if(!empty($top['child']))
-                        <optgroup label="{{ $top['name'] }}"aria-valuenow="{{$top['id']}}">
-                            @foreach($top['child'] as $sub)
-                                <option value="{{ $sub['id'] }}"
-                                {{ in_array($sub['id'],$role_permissions)?"selected":'' }}
-                                >{{ $sub['name'] }}</option>
-                            @endforeach
-                        </optgroup>
+                        <tr><th colspan="{{count($top['child'])}}">{{$top['name']}}</th></tr>
+                        <tr>
+                            <td>
+                                @foreach($top['child'] as $sub)
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="permission_id[]" value="{{ $sub['id'] }}" {{ in_array($sub['id'],$role_permissions) ? "checked":'' }}> {{ $sub['name'] }}
+                                    </label>
+                                @endforeach
+                            </td>
+                        </tr>
                     @endif
                 @empty
                 @endforelse
-            </select>
+
+                @foreach($permissions_top as $top1)
+                    @if(!empty($top1['child']))
+                        <tr><th colspan="{{count($top1['child'])}}">{{$top1['name']}}</th></tr>
+                        <tr>
+                            <td>
+                                @foreach($top1['child'] as $sub1)
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="permission_id[]" value="{{ $sub1['id'] }}" {{ in_array($sub1['id'],$role_permissions) ? "checked":'' }}> {{ $sub1['name'] }}
+                                    </label>
+                                @endforeach
+                            </td>
+                        </tr>
+                    @else
+                        <tr><th>{{$top1['name']}}</th></tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="permission_id[]" value="{{ $top1['id'] }}" {{ in_array($top1['id'],$role_permissions) ? "checked":'' }}> {{ $top1['name'] }}
+                                </label>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
         </div>
     </div>
     <div class="form-group">
@@ -61,21 +88,51 @@
             </div>
         </div>
     </div>
+
     <div class="form-group">
         <label for="permission_id" class="col-md-2 control-label">选择权限</label>
         <div class="col-sm-8">
-            <select name="permission_id[]" id="" class="form-control select2" multiple>
+            <table class="table">
                 @forelse($permissions as $top)
                     @if(!empty($top['child']))
-                        <optgroup label="{{ $top['name'] }}"aria-valuenow="{{$top['id']}}">
+                        <tr><th colspan="{{count($top['child'])}}">{{$top['name']}}</th></tr>
+                        <tr>
+                            <td>
                             @foreach($top['child'] as $sub)
-                                <option value="{{ $sub['id'] }}">{{ $sub['name'] }}</option>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="permission_id[]" value="{{ $sub['id'] }}"> {{ $sub['name'] }}
+                                </label>
                             @endforeach
-                        </optgroup>
+                            </td>
+                        </tr>
                     @endif
-                    @empty
+                @empty
                 @endforelse
-            </select>
+
+                @foreach($permissions_top as $top1)
+                    @if(!empty($top1['child']))
+                        <tr><th colspan="{{count($top1['child'])}}">{{$top1['name']}}</th></tr>
+                        <tr>
+                            <td>
+                            @foreach($top1['child'] as $sub1)
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="permission_id[]" value="{{ $sub1['id'] }}"> {{ $sub1['name'] }}
+                                </label>
+                            @endforeach
+                            </td>
+                        </tr>
+                    @else
+                        <tr><th>{{$top1['name']}}</th></tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="permission_id[]" value="{{ $top1['id'] }}"> {{ $top1['name'] }}
+                                </label>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
         </div>
     </div>
     <div class="form-group">

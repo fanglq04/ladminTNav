@@ -39,12 +39,13 @@ class RoleController extends BaseController
     {
         // get permission information
         $permissions = $this->createPermissionTreeCache();
+        $permissions_top = $this->createTopPermissionTreeCache();
         if (view()->exists('admin.auth.role.index')) {
             $tpl = 'admin.auth.role.create';
         } else {
             $tpl = 'admin::auth.role.create';
         }
-        return view($tpl, ['permissions' => $permissions]);
+        return view($tpl, ['permissions' => $permissions, 'permissions_top' => $permissions_top]);
     }
 
     public function store(Request $request)
@@ -72,13 +73,15 @@ class RoleController extends BaseController
         if (!$role)
             return redirect(route('roles.index'))->withErrors("该角色不存在或已经被删除");
         $permissions = $this->createPermissionTreeCache();
+        //20190516新增
+        $permissions_top = $this->createTopPermissionTreeCache();
         $role_permissions = $role->permissions()->pluck('permission_id')->toArray();
         if (view()->exists('admin.auth.role.edit')) {
             $tpl = 'admin.auth.role.edit';
         } else {
             $tpl = 'admin::auth.role.edit';
         }
-        return view($tpl, ['role' => $role, 'permissions' => $permissions, 'role_permissions' => $role_permissions]);
+        return view($tpl, ['role' => $role, 'permissions' => $permissions, 'permissions_top' => $permissions_top, 'role_permissions' => $role_permissions]);
     }
 
 

@@ -57,7 +57,9 @@ class Permission extends Model
      */
     public static function secondPermissionTree()
     {
-        $permissions = Permission::orderBy("order", "asc")->where("visit", 1)->get()->toArray();
+        //$permissions = Permission::orderBy("order", "asc")->where("visit", 1)->get()->toArray();
+        //20190516修改
+        $permissions = Permission::orderBy("order", "asc")->where("visit", 1)->orwhere('top_visit', 1)->get()->toArray();
         $tree = [];
         foreach ($permissions as $permission) {
             // 根节点 & 过滤非法根结点
