@@ -55,20 +55,37 @@ class AdminUser extends User
 
     public function createOrUpdate(array $data, AdminUser $user = null)
     {
+        // 上传头像 20190520
+        $file = $data['avatar'];
+        if ($file && $file->isValid()){
+            $url_path = 'adminAvatar';
+            $rule = ['jpg', 'png'];
+            $clientName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            if (!in_array($extension, $rule)) {
+                return false;
+            }
+            $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $extension;
+            $file->move($url_path, $newName);
+            $avatarPath = '/'. $url_path . '/' . $newName;
+        } else {
+            $avatarPath = '';
+        }
         if ($user) {
             // 不修改密码
             if (empty($data["password"]))
                 $data["password"] = $user->getAuthPassword();
             else
                 $data ['password'] = bcrypt($data['password']);
+            $data['avatar'] = $avatarPath;
             $user->fill($data)->save();
 
         } else {
             $this->name = $data['name'];
             $this->email = $data['email'];
-            // TODO 上传头像
             $this->password = bcrypt($data['password']);
             $this->username = $data['username'];
+            $this->avatar = $avatarPath;
             $this->save();
         }
     }

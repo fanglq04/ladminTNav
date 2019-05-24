@@ -26,12 +26,12 @@
         </div>
     </div>
 </div>
-<!--<div class="form-group">-->
-<!--    <label for="avatar" class="col-sm-2 control-label">头像</label>-->
-<!--    <div class="col-sm-8">-->
-<!--        <input type="file" id="avatar" name="avatar" class="form-control required">-->
-<!--    </div>-->
-<!--</div>-->
+<div class="form-group">
+    <label for="avatar" class="col-sm-2 control-label">头像</label>
+    <div class="col-sm-8">
+        <input type="file" id="avatar" name="avatar" class="form-control required">
+    </div>
+</div>
 <div class="form-group">
     <label for="password" class="col-sm-2 control-label">密码</label>
     <div class="col-sm-8">
