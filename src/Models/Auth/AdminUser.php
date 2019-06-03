@@ -14,6 +14,7 @@ use Admin\Traits\AdminAuth;
 use Admin\Traits\PermissionTree;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Cache;
+use Yuansir\Toastr\Facades\Toastr;
 
 class AdminUser extends User
 {
@@ -34,7 +35,6 @@ class AdminUser extends User
         'username' => 'required|max:190',
         'password' => 'required|confirmed',
         'name' => 'required|max:255',
-        'email' => 'required|unique:admin_users|max:40',
     ];
 
     public $messages = [
@@ -56,19 +56,24 @@ class AdminUser extends User
     public function createOrUpdate(array $data, AdminUser $user = null)
     {
         // 上传头像 20190520
-        $file = $data['avatar'];
-        if ($file && $file->isValid()){
-            $url_path = 'adminAvatar';
-            $rule = ['jpg', 'png'];
-            $clientName = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            if (!in_array($extension, $rule)) {
-                return false;
+
+        if (isset($data['avatar']) && !empty($data['avatar'])) {
+            $file = $data['avatar'];
+            if ($file && $file->isValid()){
+                $url_path = 'adminAvatar';
+                $rule = ['jpg', 'png'];
+                $clientName = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                if (!in_array($extension, $rule)) {
+                    return false;
+                }
+                $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $extension;
+                $file->move($url_path, $newName);
+                $avatarPath = '/'. $url_path . '/' . $newName;
+            } else {
+                return redirect()->back()->withErrors("头像文件校验错误");
             }
-            $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $extension;
-            $file->move($url_path, $newName);
-            $avatarPath = '/'. $url_path . '/' . $newName;
-        } else {
+        }else {
             $avatarPath = '';
         }
         if ($user) {
@@ -79,14 +84,14 @@ class AdminUser extends User
                 $data ['password'] = bcrypt($data['password']);
             $data['avatar'] = $avatarPath;
             $user->fill($data)->save();
-
+            return $user;
         } else {
             $this->name = $data['name'];
-            $this->email = $data['email'];
             $this->password = bcrypt($data['password']);
             $this->username = $data['username'];
             $this->avatar = $avatarPath;
             $this->save();
+            return $this;
         }
     }
 

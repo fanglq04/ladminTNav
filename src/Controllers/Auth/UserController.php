@@ -10,6 +10,7 @@ namespace Admin\Controllers\Auth;
 
 
 use Flash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Throwable;
 use Admin\Models\Auth\Role;
@@ -60,17 +61,14 @@ class UserController extends BaseController
         if ($validator->fails())
             return redirect(route('users.create'))->withErrors($validator->errors());
 
-        if (!$model->createOrUpdate($request->all()))
+        if (!$user =  $model->createOrUpdate($request->all()))
             return redirect(route('users.index'))->withErrors("创建失败");
-
-
         // create user roles to db
-        if ($request->get('role_id')) {
-            $model->roles()->sync($request->get('role_id'));
+        if ($request->input('role_id')) {
+            $user->roles()->sync($request->input('role_id'));
+            // 建立用户权限缓存
+            $user->userPermissions();
         }
-
-        // 建立用户权限缓存
-        $model->userPermissions();
         return redirect(route('users.index'));
     }
 
@@ -96,10 +94,10 @@ class UserController extends BaseController
         if (!$user)
             return redirect()->back()->withErrors("该用户不存在或已被删除");
 
-        $user->rules["email"] = [
+        /*$user->rules["email"] = [
             'email' => 'required',
             Rule::unique('admin_users')->ignore($user->id),
-        ];
+        ];*/
 
         unset($user->rules["password"]);
 
