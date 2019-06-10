@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Yuansir\Toastr\Facades\Toastr;
 
 class PermissionMiddleware
 {
@@ -31,7 +32,17 @@ class PermissionMiddleware
 
             // 检测权限
             if (!Gate::forUser($user)->check($routeName)) {
-                dd('处理没有权限');
+                if ($request->ajax()){
+                    return response()->json([
+                        'status' => 0,
+                        'code' => 0,
+                        'message' => '处理没有权限'
+                    ]);
+                }else{
+                    Toastr::error('处理没有权限');
+                    return back();
+//                    dd('处理没有权限');
+                }
             }
             return $next($request);
         }

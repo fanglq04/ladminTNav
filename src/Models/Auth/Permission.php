@@ -55,12 +55,15 @@ class Permission extends Model
      * @since 2018/4/8
      * @return array
      */
-    public static function secondPermissionTree()
+    public static function secondPermissionTree($type = 0)
     {
         //$permissions = Permission::orderBy("order", "asc")->where("visit", 1)->get()->toArray();
         //20190516修改
-        $permissions = Permission::orderBy("order", "asc")->where("visit", 1)->orwhere('top_visit', 1)->get()->toArray();
-        $tree = [];
+        if ($type == 1){
+            $permissions = Permission::orderBy("order", "asc")->get()->toArray();
+        }else{
+            $permissions = Permission::orderBy("order", "asc")->where("visit", 1)->get()->toArray();
+        }        $tree = [];
         foreach ($permissions as $permission) {
             // 根节点 & 过滤非法根结点
             if (!$permission["parent_id"] &&

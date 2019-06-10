@@ -38,7 +38,7 @@ class RoleController extends BaseController
     public function create()
     {
         // get permission information
-        $permissions = $this->createPermissionTreeCache();
+        $permissions = $this->createPermissionTreeCache(1);
         $permissions_top = $this->createTopPermissionTreeCache();
         if (view()->exists('admin.auth.role.index')) {
             $tpl = 'admin.auth.role.create';
@@ -72,7 +72,7 @@ class RoleController extends BaseController
         $role = Role::find($id);
         if (!$role)
             return redirect(route('roles.index'))->withErrors("该角色不存在或已经被删除");
-        $permissions = $this->createPermissionTreeCache();
+        $permissions = $this->createPermissionTreeCache(1);
         //20190516新增
         $permissions_top = $this->createTopPermissionTreeCache();
         $role_permissions = $role->permissions()->pluck('permission_id')->toArray();

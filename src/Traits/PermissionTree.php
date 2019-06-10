@@ -33,12 +33,12 @@ trait PermissionTree
      * @since 2018/4/8
      * @return array
      */
-    public function createPermissionTreeCache()
+    public function createPermissionTreeCache($type = 0)
     {
 //        if (Cache::has("sendPermissionTree")) {
 //            return json_decode(Cache::get('sendPermissionTree'), true);
 //        }
-        $permissionTree = Permission::secondPermissionTree();
+        $permissionTree = Permission::secondPermissionTree($type);
         Cache::forever('sendPermissionTree', json_encode($permissionTree));
         return $permissionTree;
     }
