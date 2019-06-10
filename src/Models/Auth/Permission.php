@@ -46,7 +46,7 @@ class Permission extends Model
      * @var array 排除不现实的路由
      */
     public static $exceptPermission = [
-        "store", "destroy", "update", "edit"
+//        "store", "destroy", "update", "edit"
     ];
 
     /**
