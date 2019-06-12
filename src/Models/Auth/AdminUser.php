@@ -103,10 +103,10 @@ class AdminUser extends User
      */
     public function userPermissions()
     {
-        if (Cache::has($this->id . ':permissions')) {
-            $permissions = json_decode(Cache::get($this->id . ':permissions'), true);
-            return $permissions;
-        }
+        //if (Cache::has($this->id . ':permissions')) {
+        //    $permissions = json_decode(Cache::get($this->id . ':permissions'), true);
+        //    return $permissions;
+        //}
 
         $roles = $this->roles()->with("permissions")->get();
 
@@ -116,7 +116,7 @@ class AdminUser extends User
             $permissions += $role->permissions->toArray();
         }
 
-        Cache::forever($this->id . ':permissions', json_encode($permissions));
+        //Cache::forever($this->id . ':permissions', json_encode($permissions));
         return $permissions;
     }
 
@@ -150,13 +150,13 @@ class AdminUser extends User
     public function userMenus()
     {
         $permissionTree = $this->createPermissionTreeCache();
-
+        //dump($permissionTree);
         if ($this->isRoot($this)) {
             return $permissionTree;
         }
 
         $hasPermission = array_pluck($this->userPermissions(), "parent_id", "id");
-
+        //dump($hasPermission);
         foreach ($permissionTree as $key => $item) {
             if (!in_array($item["id"], $hasPermission))
                 unset($permissionTree[$key]);
@@ -170,22 +170,24 @@ class AdminUser extends User
     public function userTopMenus()
     {
         $permissionTree = $this->createTopPermissionTreeCache();
+
         if ($this->isRoot($this)) {
             return $permissionTree;
         }
-//        dump($this->userPermissions());
-        $hasPermission = array_pluck($this->userPermissions(), "id");
+        //dump($this->userPermissions());
+        $hasPermission = array_pluck($this->userPermissions(), "parent_id", "id");
 
-//        dump($permissionTree);
-//        dump($hasPermission);
+        //dump($permissionTree);
+        //dump($hasPermission);
         foreach ($permissionTree as $key => $item) {
             if (!in_array($item["id"], $hasPermission))
                 unset($permissionTree[$key]);
-            if (!empty($item["child"]))
+            /*if (!empty($item["child"]))
                 foreach ($item["child"] as $kk => $c)
                     if (!array_key_exists($c["id"], $hasPermission))
-                        unset($permissionTree[$key][$kk]);
+                        unset($permissionTree[$key][$kk]);*/
         }
+        //  dump($permissionTree);
         return $permissionTree;
     }
 }

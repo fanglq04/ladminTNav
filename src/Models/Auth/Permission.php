@@ -88,7 +88,24 @@ class Permission extends Model
     }
     public static function secondTopPermissionTree()
     {
-        return Permission::orderBy("order", "asc")->where("top_visit", 1)->get()->toArray();
+        //return Permission::orderBy("order", "asc")->where("top_visit", 1)->get()->toArray();
+        $permissions = Permission::orderBy("order", "asc")->whereIn("top_visit", [1,2])->get()->toArray();
+        $tree = [];
+        foreach ($permissions as $permission) {
+            // 根节点 & 过滤非法根结点
+            if (!$permission["parent_id"] && (!empty($permission["uri"]) && !in_array(substr($permission["uri"], strrpos($permission["uri"], ".") + 1),self::$exceptPermission))) {
+                $root = $permission;
+                $root["child"] = [];
+                foreach ($permissions as $pp) {
+                    // 子节点 & 过滤非法子结点
+                    if ($pp["parent_id"] == $permission["id"] && (!empty($permission["uri"]) && !in_array(substr($pp["uri"], strrpos($pp["uri"], ".") + 1), self::$exceptPermission))) {
+                        array_push($root["child"], $pp);
+                    }
+                }
+                array_push($tree, $root);
+            }
+        }
+        return $tree;
     }
 
     /**

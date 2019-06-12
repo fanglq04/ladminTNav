@@ -76,6 +76,7 @@ class RoleController extends BaseController
         //20190516新增
         $permissions_top = $this->createTopPermissionTreeCache();
         $role_permissions = $role->permissions()->pluck('permission_id')->toArray();
+        //dump($permissions_top);
         if (view()->exists('admin.auth.role.edit')) {
             $tpl = 'admin.auth.role.edit';
         } else {
